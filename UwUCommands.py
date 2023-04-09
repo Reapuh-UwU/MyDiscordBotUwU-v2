@@ -91,7 +91,6 @@ class BotCommand(commands.Cog):
                 title='Minecraft server',
                 colour=discord.Colour(0xd88c54)
             )
-
             embed.add_field(
                 name='Minecraft Server IP',
                 value=IP,
@@ -109,29 +108,25 @@ class BotCommand(commands.Cog):
                 inline=False
             )
 
-            if int(player_online) > 0:
+            if 'list' in status['players']:
                 embed.add_field(
                     name='Player list',
                     value=status['players']['list'],
                     inline=False
                 )
-                embed.add_field(
-                    name='Player count',
-                    value=player_ratio,
-                    inline=False
-                )
-            else:
-                embed.add_field(
-                    name='Player count',
-                    value=player_ratio,
-                    inline=False
-                )
-
             embed.add_field(
-                name='Sofrware version',
-                value=status['software'],
+                name='Player count',
+                value=player_ratio,
                 inline=False
-                )
+            )
+
+            if 'software' in status:
+                embed.add_field(
+                    name='Sofrware version',
+                    value=status['software'],
+                    inline=False
+                    )
+                
             await message.send(embed=embed)
         else:
             x = 'Offline'
