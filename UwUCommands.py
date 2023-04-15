@@ -58,7 +58,11 @@ class BotCommand(commands.Cog):
             value='Sends a random xkcd comic',
             inline=False
         )
-
+        embed.add_field(
+            name='!tomfoolery',
+            value='run the command and find out',
+            inline=False
+        )
         await message.send(embed=embed)
 
     #message commands/FUN COMMANDS!#
@@ -130,7 +134,7 @@ class BotCommand(commands.Cog):
             await message.send(embed=embed)
         else:
             x = 'Offline'
-            await message.send('The server your trying to check is unavailable. Please check if the type the correct server address/ip or/and its online.')
+            await message.send('The server your trying to check is unavailable. Please check if the type the correct server address/ip and its online.')
     #XKCD SECTIONS#
     @commands.command()
     async def xkcd(self,message,number):
@@ -153,6 +157,7 @@ class BotCommand(commands.Cog):
     async def tomfoolery(self,message):
         await message.send('@everyone')
         await message.send('@here')
-
+        await message.send({message.author.mention})
+        
 async def setup (client):
     await client.add_cog(BotCommand(client))

@@ -1,6 +1,6 @@
 import discord
-from discord.ext import commands
 import botToken
+from discord.ext import commands
 from UwUCommands import BotCommand
 
 TOKEN = botToken.myToken
@@ -16,8 +16,13 @@ async def on_ready():
 #reload command
 @client.command()
 async def reload(message):
-    await client.reload_extension('UwUCommands')
-    await message.send('commands has been reload')
+    try:
+        await client.reload_extension('UwUCommands')
+    except Exception as e:
+        await message.send("reload is not complete")
+        await message.send("Error:"+str(e))
+    else:
+        await message.send("reload complete")
 
 #ping
 @client.command()
