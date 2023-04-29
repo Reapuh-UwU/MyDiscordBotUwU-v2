@@ -158,6 +158,11 @@ class BotCommand(commands.Cog):
         await message.send("@everyone")
         await message.send("@here")
         await message.send({message.author.mention})
-        
+    
+    #ping
+    @commands.command()
+    async def ping(self,message):
+        await message.send(f"HA! GET PONGED!! bot latency is {round(self.client.latency * 1000)}ms")
+
 async def setup (client):
     await client.add_cog(BotCommand(client))
