@@ -3,11 +3,9 @@ from discord.ext import commands
 import discord
 import random
 import requests
+import uwuify
 
-#xkcd checker
-checker = requests.get("https://xkcd.com/info.0.json")
-status_checker = checker.json()
-limit = status_checker["num"]
+
 
 class BotCommand(commands.Cog):
 
@@ -81,7 +79,7 @@ class BotCommand(commands.Cog):
     #MCstats#
     @commands.command()
     async def mcstatus(self,message,IP):
-        response = requests.get("https://api.mcsrvstat.us/2/"+IP)
+        response = requests.get(f"https://api.mcsrvstat.us/2/{IP}")
         status = response.json()
         if status["online"] == True:
             x = "Online"
@@ -135,20 +133,29 @@ class BotCommand(commands.Cog):
         else:
             x = "Offline"
             await message.send("The server your trying to check is unavailable. Please check if the type the correct server address/ip and its online.")
+    
     #XKCD SECTIONS#
     @commands.command()
     async def xkcd(self,message,number):
+        #xkcd checker
+        checker = requests.get("https://xkcd.com/info.0.json")
+        status_checker = checker.json()
+        limit = status_checker["num"]
         if int(number) <= int(limit) and int(number) > 0:
-            response = requests.get("https://xkcd.com/"+ str(number) +"/info.0.json")
+            response = requests.get(f"https://xkcd.com/{number}/info.0.json")
             status = response.json()
             await message.send(status["img"])
         else:
-            await message.send("the number you typed is not not available. Make sure the number is between 1 to " + str(limit) + ".")
+            await message.send(f"the number you typed is not not available. Make sure the number is between 1 to {limit}.")
 
     @commands.command()
     async def rngxkcd(self,message):
+        #xkcd checker
+        checker = requests.get("https://xkcd.com/info.0.json")
+        status_checker = checker.json()
+        limit = status_checker["num"]
         rng = random.randrange(1,limit)
-        response = requests.get("https://xkcd.com/"+str(rng)+"/info.0.json")
+        response = requests.get(f"https://xkcd.com/{rng}/info.0.json")
         status = response.json()
         await message.send(status["img"])
 
@@ -164,5 +171,10 @@ class BotCommand(commands.Cog):
     async def ping(self,message):
         await message.send(f"HA! GET PONGED!! bot latency is {round(self.client.latency * 1000)}ms")
 
+    #UwU Translator Section
+    @commands.command(name="uwuinator")
+    async def uwu(self,message,*,ctx):
+        await message.send(uwuify.uwu(ctx))
+    
 async def setup (client):
     await client.add_cog(BotCommand(client))
