@@ -8,7 +8,7 @@ class Reload(commands.Cog):
         self.client=client
 
     #reload commands
-    @commands.command(name="reload_commands")
+    @commands.command(aliases=["reload_commands","reload"])
     @commands.has_permissions(administrator = True)
     async def UwUcommands_reload(self,message):
         try:

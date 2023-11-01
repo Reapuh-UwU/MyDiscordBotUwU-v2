@@ -13,7 +13,7 @@ class BotCommand(commands.Cog):
         self.client=client
 
     #embed/help zone
-    @commands.command()
+    @commands.command(aliases=["commands"])
     async def help(self,message):
         embed = discord.Embed(
             title="commands?",
@@ -69,6 +69,10 @@ class BotCommand(commands.Cog):
         await message.send(f"Hello {message.author.mention}!")
 
     @commands.command()
+    async def neat(self,message):
+        await message.send("neat")
+        
+    @commands.command(aliases=["numbergen"])
     async def rng(self,message,number1,number2):
         number1 = (int(number1))
         number2 = (int(number2))
@@ -77,7 +81,7 @@ class BotCommand(commands.Cog):
         await message.send(response)
         
     #MCstats#
-    @commands.command()
+    @commands.command(aliases=["serverstatus"])
     async def mcstatus(self,message,IP):
         response = requests.get(f"https://api.mcsrvstat.us/2/{IP}")
         status = response.json()
@@ -160,21 +164,21 @@ class BotCommand(commands.Cog):
         await message.send(status["img"])
 
     #we do alittle bit of trolling
-    @commands.command()
+    @commands.command(aliases=["troll"])
     async def tomfoolery(self,message):
         await message.send("@everyone")
         await message.send("@here")
         await message.send({message.author.mention})
-    
+
     #ping
-    @commands.command()
+    @commands.command(aliases=["pong"])
     async def ping(self,message):
         await message.send(f"HA! GET PONGED!! bot latency is {round(self.client.latency * 1000)}ms")
 
     #UwU Translator Section
-    @commands.command(name="uwuinator")
-    async def uwu(self,message,*,ctx):
+    @commands.command(aliases=["uwu", "uwuinator"])
+    async def uwufy(self,message,*,ctx):
         await message.send(uwuify.uwu(ctx))
-    
+
 async def setup (client):
     await client.add_cog(BotCommand(client))
