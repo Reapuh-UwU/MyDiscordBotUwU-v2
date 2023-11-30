@@ -180,5 +180,9 @@ class BotCommand(commands.Cog):
     async def uwufy(self,message,*,ctx):
         await message.send(uwuify.uwu(ctx))
 
+    @commands.command(aliases=["chickenbutt"])
+    async def guesswhat(self,message):
+        await message.send(f"chickenbutt")
+
 async def setup (client):
     await client.add_cog(BotCommand(client))
